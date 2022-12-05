@@ -11,7 +11,8 @@ const props = defineProps<{
 
 const emit = defineEmits(["update:modelValue"]);
 
-const html = `
+const createInputHTML = () => {
+  return `
 <div>
   <label for="first-name">名前</label>
   <div style=" display: grid; grid-template-columns: 50% 50%;">
@@ -56,6 +57,7 @@ const html = `
   </div>
 </div>
 `;
+};
 
 const showProfiles = computed(() => {
   return `
@@ -70,7 +72,7 @@ const showProfiles = computed(() => {
 const onClickField = async () => {
   const result = await Swal.fire({
     title: props.title,
-    html: html,
+    html: createInputHTML(),
     showCancelButton: true,
     preConfirm: () => {
       return {

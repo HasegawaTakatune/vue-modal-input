@@ -13,7 +13,18 @@ const emit = defineEmits(["input"]);
 
 let profile: Profile = reactive(props.value);
 
-const html = `
+const showProfiles = computed(() => {
+  return `
+  名前：${profile?.firstName ?? ""} ${profile?.lastName ?? ""}
+  ニックネーム：${profile?.nickName ?? ""}
+  血液型：${profile?.bloodType ?? ""}
+  趣味：${profile?.hobby ?? ""}
+  好きな食べ物：${profile?.favoriteFood ?? ""}
+  `;
+});
+
+const createInputHTML = () => {
+  return `
 <div>
   <label for="first-name">名前</label>
   <div style=" display: grid; grid-template-columns: 50% 50%;">
@@ -56,21 +67,12 @@ const html = `
   </div>
 </div>
 `;
-
-const showProfiles = computed(() => {
-  return `
-  名前：${profile?.firstName ?? ""} ${profile?.lastName ?? ""}
-  ニックネーム：${profile?.nickName ?? ""}
-  血液型：${profile?.bloodType ?? ""}
-  趣味：${profile?.hobby ?? ""}
-  好きな食べ物：${profile?.favoriteFood ?? ""}
-  `;
-});
+};
 
 const onClickField = async () => {
   const result = await Swal.fire({
     title: props.title,
-    html: html,
+    html: createInputHTML(),
     showCancelButton: true,
     preConfirm: () => {
       return {
