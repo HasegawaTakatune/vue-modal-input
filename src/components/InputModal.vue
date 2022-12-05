@@ -25,5 +25,11 @@ const onClickField = () => {
 </script>
 
 <template>
-  <input type="text" :value="props.modelValue" readonly @click="onClickField" />
+  <input
+    type="text"
+    :value="props.modelValue"
+    readonly
+    @click="onClickField"
+    style="display: block"
+  />
 </template>

@@ -61,5 +61,11 @@ const onClickField = async () => {
 </script>
 
 <template>
-  <input type="text" :value="showFullName" readonly @click="onClickField" />
+  <input
+    type="text"
+    :value="showFullName"
+    readonly
+    @click="onClickField"
+    style="display: block"
+  />
 </template>

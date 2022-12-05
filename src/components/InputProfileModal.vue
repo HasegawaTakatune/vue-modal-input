@@ -114,6 +114,7 @@ const onClickField = async () => {
     :value="showProfiles"
     readonly
     @click="onClickField"
+    style="display: block"
   ></textarea>
 </template>
 

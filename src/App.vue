@@ -3,8 +3,6 @@ import { ref, reactive } from "vue";
 
 import type Profile from "./components/Interfaces/Profile";
 
-import HelloWorld from "./components/HelloWorld.vue";
-import TheWelcome from "./components/TheWelcome.vue";
 import InputModal from "./components/InputModal.vue";
 import InputNameModal from "./components/InputNameModal.vue";
 import InputProfileModal from "./components/InputProfileModal.vue";
@@ -52,33 +50,27 @@ const onInput = (e: Profile) => {
 </script>
 
 <template>
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="./assets/logo.svg"
-      width="125"
-      height="125"
-    />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
   <main>
-    <!-- <TheWelcome /> -->
+    <h1 class="green">Vue modal input</h1>
+
     <InputModal
       v-model="form.firstInput"
       title="文字列入力"
       label="ご自由に入力して下さい"
+      style="margin-bottom: 5px"
     />
-    <InputNameModal v-model="name" title="お名前" />
-    <InputProfileModal :value="profile" title="プロフィール" @input="onInput" />
-    <InputProfileModal2 v-model="profile2" title="プロフィール" />
-
-    <div>{{ profile }}</div>
-    <div>{{ profile2 }}</div>
+    <InputNameModal v-model="name" title="お名前" style="margin-bottom: 5px" />
+    <InputProfileModal
+      :value="profile"
+      title="プロフィール"
+      @input="onInput"
+      style="margin-bottom: 5px"
+    />
+    <InputProfileModal2
+      v-model="profile2"
+      title="プロフィール"
+      style="margin-bottom: 5px"
+    />
   </main>
 </template>
 
