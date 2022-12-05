@@ -66,6 +66,7 @@ const onInput = (e: Profile) => {
       @input="onInput"
       style="margin-bottom: 5px"
     />
+    <!-- ref変数を渡す場合は、暗黙的にrefのvalueを参照しているため、v-modeで渡してそのまま上書きされても、値の変更分を監視できる -->
     <InputProfileModal2
       v-model="profile2"
       title="プロフィール"

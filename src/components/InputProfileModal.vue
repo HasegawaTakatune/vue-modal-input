@@ -11,6 +11,7 @@ const props = defineProps<{
 
 const emit = defineEmits(["input"]);
 
+// reactiveで参照切りする
 let profile: Profile = reactive(props.value);
 
 const showProfiles = computed(() => {
