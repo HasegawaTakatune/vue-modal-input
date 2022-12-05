@@ -1,11 +1,65 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { ref, reactive } from "vue";
+
+import type Profile from "./components/Interfaces/Profile";
+
+import HelloWorld from "./components/HelloWorld.vue";
+import TheWelcome from "./components/TheWelcome.vue";
+import InputModal from "./components/InputModal.vue";
+import InputNameModal from "./components/InputNameModal.vue";
+import InputProfileModal from "./components/InputProfileModal.vue";
+import InputProfileModal2 from "./components/InputProfileModal2.vue";
+
+const form = reactive({
+  firstInput: "",
+});
+
+const name = ref({
+  firstName: "",
+  lastName: "",
+});
+
+let profile = reactive<Profile>({
+  firstName: "",
+  lastName: "",
+  nickName: "",
+  bloodType: "",
+  hobby: "",
+  favoriteFood: "",
+});
+
+const profile2 = ref<Profile>({
+  firstName: "",
+  lastName: "",
+  nickName: "",
+  bloodType: "",
+  hobby: "",
+  favoriteFood: "",
+});
+
+const onInput = (e: Profile) => {
+  // そのまま代入してしまうと、リアクティブ要素自体を更新してしまう。
+  // オブジェクトごと変わってしまっているので、Vueで変更の検知ができなくなってしまう？
+  // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+  // profile = reactive(e);
+  profile.firstName = e.firstName;
+  profile.lastName = e.lastName;
+  profile.nickName = e.nickName;
+  profile.bloodType = e.bloodType;
+  profile.hobby = e.hobby;
+  profile.favoriteFood = e.favoriteFood;
+};
 </script>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+    <img
+      alt="Vue logo"
+      class="logo"
+      src="./assets/logo.svg"
+      width="125"
+      height="125"
+    />
 
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
@@ -13,7 +67,18 @@ import TheWelcome from './components/TheWelcome.vue'
   </header>
 
   <main>
-    <TheWelcome />
+    <!-- <TheWelcome /> -->
+    <InputModal
+      v-model="form.firstInput"
+      title="文字列入力"
+      label="ご自由に入力して下さい"
+    />
+    <InputNameModal v-model="name" title="お名前" />
+    <InputProfileModal :value="profile" title="プロフィール" @input="onInput" />
+    <InputProfileModal2 v-model="profile2" title="プロフィール" />
+
+    <div>{{ profile }}</div>
+    <div>{{ profile2 }}</div>
   </main>
 </template>
 
