@@ -35,6 +35,18 @@ const profile2 = ref<Profile>({
   favoriteFood: "",
 });
 
+// reactiveでラップした中身でオブジェクト変数を管理すれば、オブジェクトごと代入した際にも変更を検知できる
+const data = reactive({
+  profile: <Profile>{
+    firstName: "",
+    lastName: "",
+    nickName: "",
+    bloodType: "",
+    hobby: "",
+    favoriteFood: "",
+  },
+});
+
 const onInput = (e: Profile) => {
   // そのまま代入してしまうと、リアクティブ要素自体を更新してしまう。
   // オブジェクトごと変わってしまっているので、Vueで変更の検知ができなくなってしまう？
@@ -59,16 +71,25 @@ const onInput = (e: Profile) => {
       label="ご自由に入力して下さい"
       style="margin-bottom: 5px"
     />
+
     <InputNameModal v-model="name" title="お名前" style="margin-bottom: 5px" />
+
     <InputProfileModal
       :value="profile"
       title="プロフィール"
       @input="onInput"
       style="margin-bottom: 5px"
     />
+
     <!-- ref変数を渡す場合は、暗黙的にrefのvalueを参照しているため、v-modeで渡してそのまま上書きされても、値の変更分を監視できる -->
     <InputProfileModal2
       v-model="profile2"
+      title="プロフィール"
+      style="margin-bottom: 5px"
+    />
+
+    <InputProfileModal2
+      v-model="data.profile"
       title="プロフィール"
       style="margin-bottom: 5px"
     />

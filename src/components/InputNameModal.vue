@@ -12,17 +12,6 @@ const props = defineProps<{
 
 const emit = defineEmits(["update:modelValue"]);
 
-const html = `
-<div>
-  <label for="first-name">苗字</label>
-  <input id="first-name" class="swal2-input" value="${props.modelValue.firstName}">
-</div>
-<div>
-  <label for="last-name">名前</label>
-  <input id="last-name" class="swal2-input" value="${props.modelValue.lastName}">
-</div>
-`;
-
 const showFullName = computed(() => {
   const first = props.modelValue.firstName.trim();
   const last = props.modelValue.lastName.trim();
@@ -34,10 +23,25 @@ const showFullName = computed(() => {
   return `${first} ${last}`;
 });
 
+const createInputHTML = () => {
+  return `
+  <div>
+    <label for="first-name">苗字</label>
+    <input id="first-name" class="swal2-input" value=":first-name">
+  </div>
+  <div>
+    <label for="last-name">名前</label>
+    <input id="last-name" class="swal2-input" value=":last-name">
+  </div>`
+    .replace(":first-name", props.modelValue?.firstName ?? "")
+    .replace(":last-name", props.modelValue?.lastName ?? "")
+    .trim();
+};
+
 const onClickField = async () => {
   const result = await Swal.fire({
     title: props.title,
-    html: html,
+    html: createInputHTML(),
     showCancelButton: true,
     preConfirm: () => {
       return [
